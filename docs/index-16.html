@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Class XI Chemistry and English MCQs Test</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap">
+<style>
+:root {
+  --bg: #eaeff6;
+  --card: #ffffff;
+  --text: #1a2233;
+  --muted: #5d6880;
+  --line: #d9e0ec;
+  --accent: #3b3fd8;
+  --accent-ink: #ffffff;
+  --accent-soft: #e6e8ff;
+  --ok: #0f7a55;
+  --ok-soft: #dff4ea;
+  --bad: #b83232;
+  --bad-soft: #fbe6e6;
+  --warn: #a15c00;
+  --warn-soft: #fff1d6;
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #10141f;
+    --card: #1a2030;
+    --text: #e8ecf6;
+    --muted: #97a2bb;
+    --line: #2b344b;
+    --accent: #8b90ff;
+    --accent-ink: #10141f;
+    --accent-soft: #262a52;
+    --ok: #4fd1a0;
+    --ok-soft: #14352a;
+    --bad: #ff8a8a;
+    --bad-soft: #3d1d20;
+    --warn: #ffc266;
+    --warn-soft: #3a2b10;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #10141f;
+  --card: #1a2030;
+  --text: #e8ecf6;
+  --muted: #97a2bb;
+  --line: #2b344b;
+  --accent: #8b90ff;
+  --accent-ink: #10141f;
+  --accent-soft: #262a52;
+  --ok: #4fd1a0;
+  --ok-soft: #14352a;
+  --bad: #ff8a8a;
+  --bad-soft: #3d1d20;
+  --warn: #ffc266;
+  --warn-soft: #3a2b10;
+}
+html { scroll-padding-top: calc(env(safe-area-inset-top, 0px) + 70px); }
+*, *::before, *::after { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Atkinson Hyperlegible", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  font-size: 17px;
+  line-height: 1.5;
+  -webkit-text-size-adjust: 100%;
+}
+.wrap { max-width: 760px; margin: 0 auto; padding: 16px 14px 48px; }
+.screen[hidden] { display: none; }
+
+/* Start screen */
+.intro { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 22px 20px; margin: 6px 0 14px; }
+.intro h1 { font-size: 1.65rem; line-height: 1.2; margin: 0 0 6px; }
+.intro p { color: var(--muted); margin: 0 0 16px; }
+.facts { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 22px; padding: 0; list-style: none; }
+.facts li { background: var(--accent-soft); color: var(--accent); border-radius: 999px; padding: 4px 12px; font-size: .92rem; font-weight: 700; }
+label.field { display: block; font-weight: 700; margin-bottom: 6px; }
+input[type="text"] {
+  width: 100%; font: inherit; color: var(--text); background: var(--bg);
+  border: 2px solid var(--line); border-radius: 10px; padding: 12px 14px; margin-bottom: 18px;
+}
+input[type="text"]:focus { outline: none; border-color: var(--accent); }
+button { font: inherit; cursor: pointer; }
+.btn {
+  background: var(--accent); color: var(--accent-ink); border: 0; border-radius: 12px;
+  padding: 13px 22px; font-weight: 700; width: 100%;
+}
+.btn:focus-visible, .opt input:focus-visible + span, .dot:focus-visible, .chip:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.btn.ghost { background: transparent; color: var(--accent); border: 2px solid var(--accent); }
+
+/* Sticky status bar */
+.bar {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5;
+  background: var(--card); border: 1px solid var(--line); border-radius: 14px;
+  padding: 10px 14px; margin-bottom: 14px;
+}
+.bar-row { display: flex; justify-content: space-between; align-items: center; gap: 12px; font-weight: 700; }
+.bar-row .muted { color: var(--muted); font-weight: 400; }
+.track { height: 8px; background: var(--line); border-radius: 99px; margin-top: 8px; overflow: hidden; }
+.fill { height: 100%; width: 0; background: var(--accent); border-radius: 99px; transition: width .25s ease; }
+
+/* Navigator */
+.nav { display: grid; grid-template-columns: repeat(10, 1fr); gap: 6px; margin-bottom: 18px; }
+.dot {
+  aspect-ratio: 1; border-radius: 8px; border: 2px solid var(--line); background: var(--card);
+  color: var(--muted); font-size: .8rem; font-weight: 700; padding: 0; display: grid; place-items: center;
+}
+.dot.done { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.dot.missing { border-color: var(--bad); color: var(--bad); }
+
+/* Questions */
+.q { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 16px; margin-bottom: 12px; }
+.q.missing { border-color: var(--bad); background: var(--bad-soft); }
+.q-text { display: flex; gap: 10px; margin: 0 0 12px; font-weight: 700; }
+.q-num { color: var(--accent); min-width: 1.9em; }
+.opts { display: flex; flex-wrap: wrap; gap: 8px; }
+.opt { position: relative; }
+.opt input { position: absolute; opacity: 0; inset: 0; width: 100%; height: 100%; margin: 0; cursor: pointer; }
+.opt span {
+  display: block; border: 2px solid var(--line); border-radius: 10px; padding: 8px 12px;
+  background: var(--bg); line-height: 1.35; transition: background .12s, border-color .12s;
+}
+.opt b { color: var(--accent); margin-right: 6px; }
+.opt input:checked + span { background: var(--accent-soft); border-color: var(--accent); }
+.opt:hover span { border-color: var(--accent); }
+
+.submit-zone { margin-top: 22px; }
+.msg { color: var(--bad); font-weight: 700; text-align: center; margin: 0 0 12px; min-height: 1.4em; }
+
+/* Result */
+.score-card { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 26px 20px; text-align: center; margin-top: 18px; }
+.score-card h2 { margin: 0 0 4px; font-size: 1.2rem; }
+.ring { --p: 0; width: 170px; height: 170px; border-radius: 50%; margin: 18px auto;
+  background: conic-gradient(var(--accent) calc(var(--p) * 1%), var(--line) 0);
+  display: grid; place-items: center; }
+.ring div { width: 136px; height: 136px; border-radius: 50%; background: var(--card); display: grid; place-content: center; }
+.ring strong { font-size: 2.3rem; line-height: 1; }
+.ring small { color: var(--muted); }
+.verdict { font-weight: 700; font-size: 1.1rem; margin: 0 0 14px; }
+.stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 18px; }
+.stat { border-radius: 12px; padding: 10px 6px; font-size: .9rem; }
+.stat b { display: block; font-size: 1.4rem; }
+.stat.ok { background: var(--ok-soft); color: var(--ok); }
+.stat.bad { background: var(--bad-soft); color: var(--bad); }
+.stat.time { background: var(--accent-soft); color: var(--accent); }
+.btns { display: grid; gap: 10px; }
+.filters { display: flex; gap: 8px; margin: 22px 0 12px; flex-wrap: wrap; }
+.chip { border: 2px solid var(--line); background: var(--card); color: var(--text); border-radius: 999px; padding: 6px 14px; font-weight: 700; }
+.chip.on { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.r { background: var(--card); border: 1px solid var(--line); border-left-width: 6px; border-radius: 14px; padding: 14px 16px; margin-bottom: 10px; }
+.r.right { border-left-color: var(--ok); }
+.r.wrong { border-left-color: var(--bad); }
+.r .opts { margin-bottom: 8px; }
+.r .o { border: 2px solid var(--line); border-radius: 10px; padding: 6px 11px; background: var(--bg); font-size: .95rem; }
+.r .o.correct { background: var(--ok-soft); border-color: var(--ok); color: var(--ok); font-weight: 700; }
+.r .o.picked-wrong { background: var(--bad-soft); border-color: var(--bad); color: var(--bad); font-weight: 700; text-decoration: line-through; }
+.r .note { margin: 0; font-size: .92rem; color: var(--muted); }
+.r .note b.ok { color: var(--ok); }
+.r .note b.bad { color: var(--bad); }
+
+.later { color: var(--muted); margin: 0 0 6px; }
+.sendstatus { margin: 0 0 14px; font-weight: 700; color: var(--muted); }
+.sendstatus.ok { color: var(--ok); }
+.sendstatus.bad, .sendstatus.warn { color: var(--bad); }
+@media (max-width: 480px) {
+  body { font-size: 16px; }
+  .nav { grid-template-columns: repeat(8, 1fr); }
+  .opt span { padding: 8px 10px; }
+}
+@media (prefers-reduced-motion: reduce) { .fill { transition: none; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- Test -->
+  <section id="test" class="screen">
+    <div class="intro">
+      <h1>Class XI Chemistry and English MCQs Test</h1>
+      <p>Answer all 40 questions, then submit to see your result.</p>
+      <label class="field" for="name">Your name</label>
+      <input id="name" type="text" autocomplete="name" placeholder="Enter your full name" maxlength="60" style="margin-bottom:0">
+    </div>
+    <div class="bar" role="status" aria-live="polite">
+      <div class="bar-row">
+        <span id="count">0 of 40 answered</span>
+        <span class="muted" id="clock">00:00</span>
+      </div>
+      <div class="track"><div class="fill" id="fill"></div></div>
+    </div>
+    <div class="nav" id="nav" aria-label="Question navigator"></div>
+    <div id="questions"></div>
+    <div class="submit-zone">
+      <p class="msg" id="msg" role="alert"></p>
+      <button class="btn" id="submitBtn" type="button">Submit test</button>
+    </div>
+  </section>
+
+  <!-- Result -->
+  <section id="result" class="screen" hidden>
+    <div class="score-card">
+      <h2 id="who"></h2>
+      <p class="verdict" id="verdictText">Test submitted</p>
+      <p class="sendstatus" id="sendStatus" role="status"></p>
+      <p class="later">Your result will be shared with you later.</p>
+      <div class="btns">
+        <button class="btn" id="resendBtn" type="button" hidden>Try sending again</button>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<script>
+// Paste your free Web3Forms access key between the quotes (results are emailed to the address used to get the key)
+const WEB3FORMS_KEY = "cbc036b9-fcea-46ed-9dfc-8a9d06d4cb30";
+const LET = ["A", "B", "C", "D"];
+const DONE_KEY = "mcq_classxi_done_v1", PEND_KEY = "mcq_classxi_pending_v1";
+const lsGet = k => { try { return localStorage.getItem(k); } catch (e) { return null; } };
+const lsSet = (k, v) => { try { localStorage.setItem(k, v); } catch (e) {} };
+const lsDel = k => { try { localStorage.removeItem(k); } catch (e) {} };
+// [question, [options], correctIndex]
+const Q = [
+  ["The value of Avogadro’s number is:", ["3.011 × 10²³","6.022 × 10²⁴","6.022 × 10²³","6.022 × 10²²"], 2],
+  ["The SI unit for measuring the amount of a substance is:", ["litre","mole","gram","kelvin"], 1],
+  ["One mole of any substance contains:", ["12 particles","22.4 particles","1000 particles","6.022 × 10²³ particles"], 3],
+  ["The number of atoms present in one mole of carbon is:", ["6.022 × 10²³","12","1","6.022 × 10¹⁰"], 0],
+  ["The number of moles of a substance can be calculated by:", ["mass × molar mass","mass + molar mass","mass ÷ molar mass","molar mass ÷ mass"], 2],
+  ["The molar mass of H₂O (H = 1, O = 16) is:", ["20 g/mol","18 g/mol","16 g/mol","17 g/mol"], 1],
+  ["What is the mass of one mole of CO₂? (C = 12, O = 16)", ["44 g","28 g","56 g","32 g"], 0],
+  ["How many moles are present in 36 g of water? (Molar mass = 18 g/mol)", ["4","1","2","3"], 2],
+  ["How many moles are present in 11 g of CO₂? (Molar mass = 44 g/mol)", ["2","0.25","4","0.5"], 1],
+  ["The number of molecules present in 2 moles of O₂ is:", ["24.088 × 10²³","12.044 × 10²³","6.022 × 10²³","3.011 × 10²³"], 1],
+  ["The number of particles in 0.5 mole of a substance is:", ["3.011 × 10²²","1.204 × 10²⁴","3.011 × 10²³","6.022 × 10²³"], 2],
+  ["The molar mass of NaCl (Na = 23, Cl = 35.5) is:", ["71 g/mol","46 g/mol","58.5 g/mol","23 g/mol"], 2],
+  ["How many significant figures are present in 4.56?", ["3","4","1","2"], 0],
+  ["How many significant figures are present in 0.0045?", ["4","2","5","3"], 1],
+  ["The number of significant figures in 100.0 is:", ["4","1","3","2"], 0],
+  ["Zeros between two non-zero digits, such as in 2.030, are:", ["only significant in whole numbers","never significant","always significant","only significant in decimals"], 2],
+  ["The number of significant figures in 6.022 × 10²³ is:", ["23","4","2","3"], 1],
+  ["When 3.146 is rounded to two decimal places, the result is:", ["3.20","3.15","3.14","3.10"], 1],
+  ["When 45.34 is rounded to three significant figures, the result is:", ["45.4","45.34","45","45.3"], 3],
+  ["Rounding 0.06789 to two significant figures gives:", ["0.067","0.0679","0.068","0.07"], 2],
+  ["On which date did Quaid-e-Azam deliver his presidential address?", ["25 December 1947","23 March 1940","11 August 1947","14 August 1947"], 2],
+  ["The address was delivered to the inaugural session of Pakistan’s:", ["Provincial Assembly","first Constituent Assembly","Senate","Supreme Court"], 1],
+  ["The word “inaugural” means:", ["marking the beginning","disputed","final","secret"], 0],
+  ["The word “consequential” means:", ["lengthy","unclear","unimportant","important, with significant results"], 3],
+  ["The word “assertions” means:", ["requests","confident statements","denials","questions"], 1],
+  ["The word “testifies” means:", ["delays","forgets","serves as evidence","opposes"], 2],
+  ["An “excerpt” is:", ["a spelling error","a title","a complete book","a short extract from a longer text"], 3],
+  ["“I cordially thank you” means the thanks are given:", ["warmly","casually","angrily","reluctantly"], 0],
+  ["The word “conferred” means:", ["borrowed","granted","taken away","refused"], 1],
+  ["A task described as “onerous” is:", ["burdensome","pleasant","easy","brief"], 0],
+  ["A “provisional” constitution is:", ["foreign","illegal","temporary","permanent"], 2],
+  ["A “sovereign” body is one that:", ["has no power","is colonial","depends on others","has supreme independent authority"], 3],
+  ["The word “unprecedented” means:", ["never having happened before","repeated","ordinary","expected"], 0],
+  ["The word “unparalleled” means:", ["unfinished","having no equal","side by side","equal to others"], 1],
+  ["The word “titanic” as used in the text means:", ["enormous","ancient","dangerous","tiny"], 0],
+  ["What are the two main functions of the Constituent Assembly?", ["Defending borders and managing trade","Appointing judges and governors","Framing a constitution and acting as the Federal Legislature","Collecting taxes and printing currency"], 2],
+  ["Which teaching of the Holy Prophet (PBUH) does the Quaid’s vision remind us of?", ["Nations must remain separate","Wealth is the sign of honour","Knowledge is only for leaders","All men are equal in the eyes of God"], 3],
+  ["Who coined the word “Pakistan”?", ["Chaudhry Rehmat Ali","Sir Syed Ahmad Khan","Liaquat Ali Khan","Allama Iqbal"], 0],
+  ["In the speech, the world is “wondering” at this unprecedented ___ revolution.", ["industrial","cyclonic","silent","economic"], 1],
+  ["Which sentence uses a colon correctly to separate two independent clauses?", ["She said: that he was late.","The message was clear: all citizens are equal.","We went to: the market.","He bought: apples, and oranges."], 1]
+];
+const N = Q.length;
+let answers = new Array(N).fill(null);
+let lastPayload = null;
+let startTime = 0, timer = null, studentName = "";
+
+const $ = id => document.getElementById(id);
+const show = id => { ["test","result"].forEach(s => $(s).hidden = s !== id); window.scrollTo(0, 0); };
+const fmt = s => Math.floor(s / 60) + ":" + String(s % 60).padStart(2, "0");
+
+function buildTest() {
+  const qs = $("questions"), nav = $("nav");
+  qs.innerHTML = ""; nav.innerHTML = "";
+  Q.forEach((q, i) => {
+    const d = document.createElement("div");
+    d.className = "q"; d.id = "q" + i;
+    const p = document.createElement("p");
+    p.className = "q-text";
+    p.innerHTML = '<span class="q-num">' + (i + 1) + '.</span><span></span>';
+    p.lastChild.textContent = q[0];
+    d.appendChild(p);
+    const o = document.createElement("div");
+    o.className = "opts"; o.setAttribute("role", "radiogroup");
+    q[1].forEach((t, j) => {
+      const l = document.createElement("label");
+      l.className = "opt";
+      l.innerHTML = '<input type="radio" name="q' + i + '" value="' + j + '"><span><b>' + LET[j] + ')</b></span>';
+      l.querySelector("span").append(document.createTextNode(t));
+      l.querySelector("input").addEventListener("change", () => { answers[i] = j; refresh(); });
+      o.appendChild(l);
+    });
+    d.appendChild(o);
+    qs.appendChild(d);
+
+    const b = document.createElement("button");
+    b.type = "button"; b.className = "dot"; b.id = "dot" + i;
+    b.textContent = i + 1; b.setAttribute("aria-label", "Go to question " + (i + 1));
+    b.addEventListener("click", () => $("q" + i).scrollIntoView({ behavior: "smooth", block: "start" }));
+    nav.appendChild(b);
+  });
+}
+
+function refresh() {
+  const done = answers.filter(a => a !== null).length;
+  $("count").textContent = done + " of " + N + " answered";
+  $("fill").style.width = (done / N * 100) + "%";
+  answers.forEach((a, i) => {
+    const dot = $("dot" + i);
+    dot.classList.toggle("done", a !== null);
+    if (a !== null) { dot.classList.remove("missing"); $("q" + i).classList.remove("missing"); }
+  });
+  if (done === N) $("msg").textContent = "";
+}
+
+function startTest() {
+  answers = new Array(N).fill(null);
+  buildTest(); refresh();
+  startTime = Date.now();
+  clearInterval(timer);
+  timer = setInterval(() => { $("clock").textContent = fmt(Math.floor((Date.now() - startTime) / 1000)); }, 1000);
+  $("clock").textContent = "0:00";
+  show("test");
+}
+
+async function sendResult() {
+  const st = $("sendStatus"), rb = $("resendBtn");
+  rb.hidden = true;
+  if (!WEB3FORMS_KEY || WEB3FORMS_KEY.indexOf("PASTE") === 0) {
+    st.className = "sendstatus warn";
+    st.textContent = "Your result could not be sent to the teacher because email is not set up yet. Please show this screen to your teacher.";
+    return;
+  }
+  st.className = "sendstatus";
+  st.textContent = "Sending your result to the teacher…";
+  try {
+    const r = await fetch("https://api.web3forms.com/submit", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "Accept": "application/json" },
+      body: JSON.stringify(lastPayload)
+    });
+    const j = await r.json();
+    if (!j.success) throw new Error(j.message || "failed");
+    st.className = "sendstatus ok";
+    st.textContent = "Your result has been sent to the teacher.";
+    lsDel(PEND_KEY);
+  } catch (e) {
+    st.className = "sendstatus bad";
+    st.textContent = "Your result could not be sent (" + (e && e.message ? e.message : "unknown error") + "). Check your internet connection and try again.";
+    rb.hidden = false;
+  }
+}
+
+function submitTest() {
+  if (!$("name").value.trim()) {
+    $("msg").textContent = "Please enter your name before submitting.";
+    $("name").focus();
+    $("name").scrollIntoView({ behavior: "smooth", block: "center" });
+    return;
+  }
+  const missing = answers.map((a, i) => a === null ? i : -1).filter(i => i >= 0);
+  if (missing.length) {
+    missing.forEach(i => { $("q" + i).classList.add("missing"); $("dot" + i).classList.add("missing"); });
+    $("msg").textContent = missing.length + (missing.length === 1 ? " question is" : " questions are") + " still unanswered. Please answer all questions before submitting.";
+    $("q" + missing[0]).scrollIntoView({ behavior: "smooth", block: "center" });
+    return;
+  }
+  clearInterval(timer);
+  const secs = Math.floor((Date.now() - startTime) / 1000);
+  let right = 0;
+  answers.forEach((a, i) => { if (a === Q[i][2]) right++; });
+  const pct = Math.round(right / N * 100);
+
+  studentName = $("name").value.trim();
+  $("who").textContent = studentName;
+
+  const chem = answers.slice(0, 20).filter((a, i) => a === Q[i][2]).length;
+  const eng = answers.slice(20).filter((a, i) => a === Q[i + 20][2]).length;
+  const wrongList = Q.map((q, i) => answers[i] === q[2] ? null : "Q" + (i + 1) + ": chose " + LET[answers[i]] + ", correct " + LET[q[2]]).filter(Boolean).join("\n") || "None";
+  const sheet = Q.map((q, i) => (i + 1) + ". chose " + LET[answers[i]] + (answers[i] === q[2] ? " (correct)" : " (wrong, correct is " + LET[q[2]] + ")")).join("\n");
+  lastPayload = {
+    access_key: WEB3FORMS_KEY,
+    subject: "MCQ Test Result: " + studentName + " - " + right + "/" + N + " (" + pct + "%)",
+    from_name: "Class XI MCQ Test",
+    student_name: studentName,
+    total_score: right + " / " + N,
+    percentage: pct + "%",
+    chemistry: chem + " / 20",
+    english: eng + " / 20",
+    time_taken: fmt(secs),
+    submitted_at: new Date().toLocaleString(),
+    incorrect_answers: wrongList,
+    answer_sheet: sheet
+  };
+  lsSet(DONE_KEY, "1");
+  lsSet(PEND_KEY, JSON.stringify(lastPayload));
+  sendResult();
+
+  show("result");
+}
+
+$("submitBtn").addEventListener("click", submitTest);
+$("resendBtn").addEventListener("click", sendResult);
+function showAlreadyDone() {
+  $("who").textContent = "You have already taken this test";
+  $("verdictText").textContent = "Only one attempt is allowed.";
+  const st = $("sendStatus");
+  const pend = lsGet(PEND_KEY);
+  let parsed = null;
+  if (pend) { try { parsed = JSON.parse(pend); } catch (e) {} }
+  if (parsed) { lastPayload = parsed; sendResult(); }
+  else { st.className = "sendstatus ok"; st.textContent = "Your result has been sent to the teacher."; }
+  show("result");
+}
+
+if (lsGet(DONE_KEY) === "1") showAlreadyDone(); else startTest();
+</script>
+</body>
+</html>
