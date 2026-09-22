@@ -13,7 +13,7 @@
  */
 function doPost(e) {
   try {
-    var sheet = SpreadsheetApp.openById("PASTE_SHEET_ID_HERE").getSheets()[0];
+    var sheet = SpreadsheetApp.openById("1xBf9YoS8WLz97InO3KWW_sqvDWrvz6encL5wU_jqqfE").getSheets()[0];
     var data = JSON.parse(e.postData.contents);
     sheet.appendRow([
       data.submitted_at || new Date().toLocaleString(),
