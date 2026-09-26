@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Class X Chemistry: Organic Chemistry Test</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap">
+<style>
+:root {
+  --bg: #eaeff6; --card: #ffffff; --text: #1a2233; --muted: #5d6880; --line: #d9e0ec;
+  --accent: #3b3fd8; --accent-ink: #ffffff; --accent-soft: #e6e8ff;
+  --ok: #0f7a55; --ok-soft: #dff4ea; --bad: #b83232; --bad-soft: #fbe6e6;
+  --warn: #a15c00; --warn-soft: #fff1d6;
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #10141f; --card: #1a2030; --text: #e8ecf6; --muted: #97a2bb; --line: #2b344b;
+    --accent: #8b90ff; --accent-ink: #10141f; --accent-soft: #262a52;
+    --ok: #4fd1a0; --ok-soft: #14352a; --bad: #ff8a8a; --bad-soft: #3d1d20;
+    --warn: #ffc266; --warn-soft: #3a2b10;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #10141f; --card: #1a2030; --text: #e8ecf6; --muted: #97a2bb; --line: #2b344b;
+  --accent: #8b90ff; --accent-ink: #10141f; --accent-soft: #262a52;
+  --ok: #4fd1a0; --ok-soft: #14352a; --bad: #ff8a8a; --bad-soft: #3d1d20;
+  --warn: #ffc266; --warn-soft: #3a2b10;
+}
+html { scroll-padding-top: calc(env(safe-area-inset-top, 0px) + 70px); }
+*, *::before, *::as { box-sizing: border-box; }
+*, *::before, *::after { box-sizing: border-box; }
+.q, .opts, .intro h1, .bar, .navtxt { -webkit-user-select: none; -moz-user-select: none; user-select: none; -webkit-touch-callout: none; }
+img { -webkit-user-drag: none; user-drag: none; pointer-events: none; }
+body {
+  margin: 0; background: var(--bg); color: var(--text);
+  font-family: "Atkinson Hyperlegible", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  font-size: 17px; line-height: 1.5; -webkit-text-size-adjust: 100%;
+}
+.wrap { max-width: 620px; margin: 0 auto; padding: 16px 14px 48px; }
+.screen[hidden] { display: none; }
+.intro { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 22px 20px; margin: 6px 0 14px; }
+.intro h1 { font-size: 1.4rem; line-height: 1.25; margin: 0 0 6px; }
+.intro p { color: var(--muted); margin: 0 0 16px; }
+label.field { display: block; font-weight: 700; margin-bottom: 6px; }
+input[type="text"] {
+  width: 100%; font: inherit; color: var(--text); background: var(--bg);
+  border: 2px solid var(--line); border-radius: 10px; padding: 12px 14px;
+}
+input[type="text"]:focus { outline: none; border-color: var(--accent); }
+button { font: inherit; cursor: pointer; }
+.btn { background: var(--accent); color: var(--accent-ink); border: 0; border-radius: 12px; padding: 13px 22px; font-weight: 700; width: 100%; }
+.btn:disabled { opacity: .45; cursor: not-allowed; }
+.btn:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.bar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 10px 14px; margin-bottom: 14px; }
+.bar-row { display: flex; justify-content: space-between; align-items: center; gap: 12px; font-weight: 700; }
+.bar-row .navtxt { color: var(--muted); font-weight: 400; }
+.timer { font-variant-numeric: tabular-nums; }
+.timer.low { color: var(--bad); }
+.track { height: 8px; background: var(--line); border-radius: 99px; margin-top: 8px; overflow: hidden; }
+.fill { height: 100%; width: 0; background: var(--accent); border-radius: 99px; transition: width .2s linear; }
+.fill.low { background: var(--bad); }
+.q { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 18px; margin-bottom: 12px; }
+.q-text { font-weight: 700; margin: 0 0 14px; font-size: 1.05rem; }
+.opts { display: flex; flex-direction: column; gap: 10px; }
+.opt { position: relative; }
+.opt input { position: absolute; opacity: 0; inset: 0; width: 100%; height: 100%; margin: 0; cursor: pointer; }
+.opt span { display: block; border: 2px solid var(--line); border-radius: 10px; padding: 11px 14px; background: var(--bg); line-height: 1.35; transition: background .12s, border-color .12s; }
+.opt b { color: var(--accent); margin-right: 6px; }
+.opt input:checked + span { background: var(--accent-soft); border-color: var(--accent); }
+.opt:hover span { border-color: var(--accent); }
+.opt.locked input { cursor: default; }
+.opt.locked span { opacity: .75; }
+.opt.locked:hover span { border-color: var(--line); }
+.opt.locked input:checked + span { opacity: 1; border-color: var(--accent); }
+.nextzone { margin-top: 16px; }
+.hint { text-align: center; color: var(--muted); font-size: .92rem; margin: 10px 0 0; }
+.score-card { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 26px 20px; text-align: center; margin-top: 18px; }
+.score-card h2 { margin: 0 0 4px; font-size: 1.2rem; }
+.verdict { font-weight: 700; font-size: 1.1rem; margin: 10px 0 4px; }
+.later { color: var(--muted); margin: 0 0 6px; }
+.sendstatus { margin: 10px 0 14px; font-weight: 700; color: var(--muted); }
+.sendstatus.ok { color: var(--ok); }
+.sendstatus.bad, .sendstatus.warn { color: var(--bad); }
+.btns { display: grid; gap: 10px; }
+@media (max-width: 480px) { body { font-size: 16px; } }
+@media (prefers-reduced-motion: reduce) { .fill { transition: none; } }
+</style>
+</head>
+<body oncontextmenu="return false" oncopy="return false" oncut="return false" onselectstart="return false" ondragstart="return false">
+<div class="wrap">
+
+  <section id="start" class="screen">
+    <div class="intro">
+      <h1>Class X Chemistry: Organic Chemistry Test</h1>
+      <p>50 questions, one at a time. Each question has 60 seconds. Once you pick an answer it is locked and cannot be changed. If time runs out, the question is left unanswered and the test moves on.</p>
+      <label class="field" for="name">Your name</label>
+      <input id="name" type="text" autocomplete="name" placeholder="Enter your full name" maxlength="60">
+      <div style="height:14px"></div>
+      <button class="btn" id="beginBtn" type="button">Start test</button>
+    </div>
+  </section>
+
+  <section id="test" class="screen" hidden>
+    <div class="bar" role="status" aria-live="polite">
+      <div class="bar-row">
+        <span class="navtxt" id="count">Question 1 of 50</span>
+        <span class="timer" id="clock">60</span>
+      </div>
+      <div class="track"><div class="fill" id="fill"></div></div>
+    </div>
+    <div id="qHolder"></div>
+    <div class="nextzone">
+      <button class="btn" id="nextBtn" type="button" disabled>Next question</button>
+      <p class="hint" id="hint">Choose an answer to continue.</p>
+    </div>
+  </section>
+
+  <section id="result" class="screen" hidden>
+    <div class="score-card">
+      <h2 id="who"></h2>
+      <p class="verdict" id="verdictText">Test submitted</p>
+      <p class="sendstatus" id="sendStatus" role="status"></p>
+      <p class="later">Your result will be shared with you later.</p>
+      <div class="btns">
+        <button class="btn" id="resendBtn" type="button" hidden>Try sending again</button>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<script>
+const TEST_ID = "class10-chem-organic";
+const WEB3FORMS_KEY = "cbc036b9-fcea-46ed-9dfc-8a9d06d4cb30";
+const SHEET_URL = "https://script.google.com/macros/s/AKfycbyXuX-aIOiW0JrEpjsW5huHz7IQl_NkGIVQwioBd92hIzR9JeDumnDnkFbCJbtesCoT/exec";
+const SECONDS_PER_Q = 60;
+const LET = ["A", "B", "C", "D"];
+const DONE_KEY = "mcq_" + TEST_ID + "_done_v1", PEND_KEY = "mcq_" + TEST_ID + "_pending_v1";
+const lsGet = k => { try { return localStorage.getItem(k); } catch (e) { return null; } };
+const lsSet = (k, v) => { try { localStorage.setItem(k, v); } catch (e) {} };
+const lsDel = k => { try { localStorage.removeItem(k); } catch (e) {} };
+
+const Q = [
+  ["Which element shows the maximum tendency for catenation?", ["Oxygen", "Carbon", "Silicon", "Nitrogen"], 1],
+  ["The approximate strength of the C–C bond is:", ["452 kJ/mol", "200 kJ/mol", "351 kJ/mol", "355 kJ/mol"], 2],
+  ["The bond energy of the Si–Si bond is approximately:", ["500 kJ/mol", "200 kJ/mol", "355 kJ/mol", "452 kJ/mol"], 1],
+  ["Why does silicon occur in nature mainly as silica and silicates rather than forming long chains?", ["Silicon has low valency", "Si–O bonds are stronger than Si–Si bonds", "Silicon cannot form covalent bonds", "Si–O bonds are weaker than Si–Si bonds"], 1],
+  ["Compounds having the same molecular formula but different structures are called:", ["Isomers", "Isotopes", "Allotropes", "Isobars"], 0],
+  ["How many structural isomers does pentane (C₅H₁₂) have?", ["4", "2", "5", "3"], 3],
+  ["The three isomers of pentane are n-pentane, isopentane, and:", ["Methylbutane", "Cyclopentane", "Neopentane", "Isobutane"], 2],
+  ["Which compound contains a double covalent bond between two carbon atoms?", ["Methane", "Acetylene", "Ethane", "Ethylene"], 3],
+  ["Which compound contains a triple covalent bond between two carbon atoms?", ["Acetylene", "Propane", "Ethane", "Ethylene"], 0],
+  ["Organic compounds are generally:", ["Superconductors", "Non-conductors of electricity", "Good conductors of electricity", "Semi-conductors"], 1],
+  ["Organic compounds generally have lower melting and boiling points because:", ["They contain metallic bonds", "Covalent bonds are stronger than ionic bonds", "Covalent compounds generally have weaker intermolecular forces than ionic compounds", "They have no intermolecular forces"], 2],
+  ["According to the \"like dissolves like\" rule, non-polar organic compounds are generally soluble in:", ["Benzene", "Water", "Acetic acid", "Alcohol"], 0],
+  ["The reactivity of organic compounds is generally:", ["Explosive", "Instantaneous", "Very fast", "Very slow"], 3],
+  ["A common product formed when organic compounds burn completely in air is:", ["Nitrogen dioxide", "Carbon dioxide", "Carbon monoxide", "Water only"], 1],
+  ["Which of the following is NOT a method of representing an organic compound?", ["Condensed formula", "Molecular formula", "Ionic formula", "Structural formula"], 2],
+  ["Which formula shows the exact number of atoms of each element present in a molecule?", ["Empirical formula", "Molecular formula", "Condensed formula", "Structural formula"], 1],
+  ["In a structural formula, a double bond is represented by:", ["Two lines", "One line", "A dot", "Three lines"], 0],
+  ["The formula that represents the sharing of electrons between atoms is called:", ["Condensed formula", "Dot and cross formula", "Structural formula", "Molecular formula"], 1],
+  ["The two major sources of organic compounds are:", ["Plants and rocks", "Air and water", "Living things and minerals", "Coal and petroleum"], 2],
+  ["Which of the following is an animal source of organic compounds in the form of protein?", ["Sunflower", "Eggs", "Apple", "Wheat"], 1],
+  ["Which of the following is a plant source of carbohydrates?", ["Butter", "Eggs", "Milk", "Wheat"], 3],
+  ["Coal is formed naturally over approximately:", ["500 million years", "50 million years", "1 billion years", "100 million years"], 1],
+  ["Wood contains approximately what percentage of carbon?", ["90%", "40%", "20%", "60%"], 3],
+  ["What is the correct order of coal formation during carbonization?", ["Peat → Wood → Lignite → Anthracite", "Wood → Peat → Lignite → Anthracite", "Wood → Anthracite → Peat → Lignite", "Lignite → Peat → Wood → Anthracite"], 1],
+  ["Anthracite coal contains approximately:", ["70% carbon", "40% carbon", "90% carbon", "60% carbon"], 2],
+  ["One of the world's largest lignite deposits in Pakistan is located in:", ["Balochistan", "Salt Range", "Hunza Valley", "Tharparkar"], 3],
+  ["Petroleum is best described as a:", ["Complex mixture of hydrocarbons", "Single chemical element", "Pure hydrocarbon compound", "Inorganic mineral"], 0],
+  ["Petroleum is separated into different fractions by:", ["Crystallization", "Fractional distillation", "Filtration", "Sublimation"], 1],
+  ["Fractional distillation separates the components of petroleum mainly according to their:", ["Molecular weight only", "Color", "Boiling point ranges", "Density only"], 2],
+  ["Natural gas consists mainly of:", ["Ethane", "Butane", "Propane", "Methane"], 3],
+  ["Compressed natural gas used as a vehicle fuel is abbreviated as:", ["CNG", "PNG", "LNG", "LPG"], 0],
+  ["Organic compounds used in the preparation of antibiotics belong to which category of applications?", ["Clothing", "Medical applications", "Fuel", "Raw materials"], 1],
+  ["The general formula of an alkyl radical formed by removing one hydrogen atom from an alkane is:", ["CₙH₂ₙ₋₁", "CₙH₂ₙ₊₂", "CₙH₂ₙ₊₁", "CₙH₂ₙ"], 2],
+  ["The alkyl radical obtained from methane (CH₄) is called:", ["Butyl", "Methyl", "Ethyl", "Propyl"], 1],
+  ["The alkyl radical C₅H₁₁– is known as:", ["Pentyl", "Hexyl", "Butyl", "Heptyl"], 0],
+  ["Saturated hydrocarbons contain:", ["Triple carbon-carbon bonds only", "Coordinate bonds", "Double carbon-carbon bonds only", "Single carbon-carbon bonds"], 3],
+  ["The general formula of alkanes is:", ["CₙH₂ₙ₋₂", "CₙH₂ₙ₊₂", "CₙH₂ₙ₊₁", "CₙH₂ₙ"], 1],
+  ["The general formula of alkenes is:", ["CₙHₙ", "CₙH₂ₙ₋₂", "CₙH₂ₙ", "CₙH₂ₙ₊₂"], 2],
+  ["The general formula of alkynes is:", ["CₙH₂ₙ₋₂", "CₙH₂ₙ₊₂", "CₙH₂ₙ", "CₙH₂ₙ₋₁"], 0],
+  ["Unsaturated hydrocarbons generally burn with a:", ["Green flame", "Colorless flame", "Blue, non-sooty flame", "Yellow, sooty flame"], 3],
+  ["Which type of hydrocarbons is generally more reactive?", ["Unsaturated hydrocarbons", "Neither reacts", "Saturated hydrocarbons", "Both are equally reactive"], 0],
+  ["When numbering the carbon chain of an alkane, numbering starts from the end:", ["Chosen at random", "With the most hydrogens", "Farthest from the branch", "Closest to the branch"], 3],
+  ["If the same alkyl radical occurs twice in a compound, which prefix is used?", ["Tri", "Mono", "Di", "Cata"], 2],
+  ["What is the correct name of CH₃–CH(CH₃)–CH(CH₃)–CH₃?", ["2,3-dimethylbutane", "2,2-dimethylpropane", "2-methylbutane", "3-ethylpentane"], 0],
+  ["When naming an alkene, the longest carbon chain must include:", ["Both carbon atoms of the double bond", "Only single-bonded carbons", "The branch carbon only", "The terminal carbon only"], 0],
+  ["The suffix used for compounds containing a triple bond is:", ["-ene", "-yne", "-ol", "-ane"], 1],
+  ["When a double bond and a triple bond have the same numbering priority, preference is given to:", ["Neither bond", "The branch", "The double bond", "The triple bond"], 2],
+  ["The functional group –CHO represents a/an:", ["Ester", "Carboxylic acid", "Aldehyde", "Ketone"], 2],
+  ["The functional group –COOH represents a/an:", ["Carboxylic acid", "Amine", "Alcohol", "Ester"], 0],
+  ["Compounds having the general formula R–NH₂ are called:", ["Ethers", "Amines", "Alcohols", "Esters"], 1]
+];
+const N = Q.length;
+let answers = new Array(N).fill(null);
+let cur = 0, locked = false, timeLeft = SECONDS_PER_Q, tick = null;
+let lastPayload = null;
+let startTime = 0, studentName = "";
+
+const $ = id => document.getElementById(id);
+const show = id => { ["start","test","result"].forEach(s => $(s).hidden = s !== id); window.scrollTo(0, 0); };
+const fmt = s => Math.floor(s / 60) + ":" + String(s % 60).padStart(2, "0");
+
+function renderQuestion() {
+  locked = false;
+  timeLeft = SECONDS_PER_Q;
+  $("count").textContent = "Question " + (cur + 1) + " of " + N;
+  $("nextBtn").disabled = true;
+  $("hint").textContent = "Choose an answer to continue.";
+  updateClock();
+
+  const q = Q[cur];
+  const holder = $("qHolder");
+  holder.innerHTML = "";
+  const d = document.createElement("div");
+  d.className = "q";
+  const p = document.createElement("p");
+  p.className = "q-text";
+  p.textContent = (cur + 1) + ". " + q[0];
+  d.appendChild(p);
+  const o = document.createElement("div");
+  o.className = "opts"; o.setAttribute("role", "radiogroup");
+  q[1].forEach((t, j) => {
+    const l = document.createElement("label");
+    l.className = "opt";
+    l.innerHTML = '<input type="radio" name="qcur" value="' + j + '"><span><b>' + LET[j] + ')</b></span>';
+    l.querySelector("span").append(document.createTextNode(t));
+    l.querySelector("input").addEventListener("change", () => selectOption(j));
+    o.appendChild(l);
+  });
+  d.appendChild(o);
+  holder.appendChild(d);
+
+  clearInterval(tick);
+  tick = setInterval(() => {
+    timeLeft--;
+    updateClock();
+    if (timeLeft <= 0) {
+      clearInterval(tick);
+      if (!locked) { lockOptions(); $("hint").textContent = "Time is up. Moving to the next question."; }
+      setTimeout(goNext, 700);
+    }
+  }, 1000);
+}
+
+function updateClock() {
+  const c = $("clock"), f = $("fill");
+  c.textContent = timeLeft;
+  c.classList.toggle("low", timeLeft <= 10);
+  const pct = (timeLeft / SECONDS_PER_Q) * 100;
+  f.style.width = Math.max(pct, 0) + "%";
+  f.classList.toggle("low", timeLeft <= 10);
+}
+
+function selectOption(j) {
+  if (locked) return;
+  answers[cur] = j;
+  locked = true;
+  clearInterval(tick);
+  lockOptions();
+  $("nextBtn").disabled = false;
+  $("hint").textContent = "Answer locked. Tap Next question to continue.";
+}
+
+function lockOptions() {
+  document.querySelectorAll("#qHolder .opt").forEach((el, j) => {
+    el.classList.add("locked");
+    el.querySelector("input").disabled = true;
+    if (answers[cur] === j) el.querySelector("input").checked = true;
+  });
+  $("nextBtn").disabled = false;
+}
+
+function goNext() {
+  if (cur < N - 1) { cur++; renderQuestion(); }
+  else { finishTest(); }
+}
+
+function startTest() {
+  studentName = $("name").value.trim();
+  if (!studentName) { $("name").focus(); return; }
+  answers = new Array(N).fill(null);
+  cur = 0;
+  startTime = Date.now();
+  show("test");
+  renderQuestion();
+}
+
+async function sendResult() {
+  const st = $("sendStatus"), rb = $("resendBtn");
+  rb.hidden = true;
+  if (!WEB3FORMS_KEY || WEB3FORMS_KEY.indexOf("PASTE") === 0) {
+    st.className = "sendstatus warn";
+    st.textContent = "Your result could not be sent to the teacher because email is not set up yet. Please show this screen to your teacher.";
+    return;
+  }
+  st.className = "sendstatus";
+  st.textContent = "Sending your result to the teacher…";
+  try {
+    const r = await fetch("https://api.web3forms.com/submit", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "Accept": "application/json" },
+      body: JSON.stringify(lastPayload)
+    });
+    const j = await r.json();
+    if (!j.success) throw new Error(j.message || "failed");
+    st.className = "sendstatus ok";
+    st.textContent = "Your result has been sent to the teacher.";
+    lsDel(PEND_KEY);
+  } catch (e) {
+    st.className = "sendstatus bad";
+    st.textContent = "Your result could not be sent (" + (e && e.message ? e.message : "unknown error") + "). Check your internet connection and try again.";
+    rb.hidden = false;
+  }
+}
+
+function sendToSheet() {
+  if (!SHEET_URL) return;
+  try {
+    const d = Object.assign({}, lastPayload);
+    delete d.access_key;
+    fetch(SHEET_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify(d) }).catch(() => {});
+  } catch (e) {}
+}
+
+function finishTest() {
+  clearInterval(tick);
+  const secs = Math.floor((Date.now() - startTime) / 1000);
+  let right = 0;
+  answers.forEach((a, i) => { if (a === Q[i][2]) right++; });
+  const pct = Math.round(right / N * 100);
+
+  const wrongList = Q.map((q, i) => answers[i] === q[2] ? null : "Q" + (i + 1) + ": chose " + (answers[i] === null ? "no answer" : LET[answers[i]]) + ", correct " + LET[q[2]]).filter(Boolean).join("\n") || "None";
+  const sheet = Q.map((q, i) => "Q" + (i + 1) + ": " + (answers[i] === q[2] ? "Correct" : "Wrong")).join("\n");
+
+  lastPayload = {
+    access_key: WEB3FORMS_KEY,
+    subject: "MCQ Test Result: " + studentName + " - " + right + "/" + N + " (" + pct + "%)",
+    from_name: "Class X Organic Chemistry Test",
+    student_name: studentName,
+    test_title: "Class X Chemistry: Organic Chemistry",
+    total_score: right + " / " + N,
+    percentage: pct + "%",
+    chemistry: right + " / " + N,
+    time_taken: fmt(secs),
+    submitted_at: new Date().toLocaleString(),
+    score: right,
+    out_of: N,
+    percent: pct,
+    incorrect_answers: wrongList,
+    answer_sheet: sheet
+  };
+
+  $("who").textContent = studentName;
+  lsSet(DONE_KEY, "1");
+  lsSet(PEND_KEY, JSON.stringify(lastPayload));
+  sendToSheet();
+  sendResult();
+  show("result");
+}
+
+function showAlreadyDone() {
+  $("who").textContent = "You have already taken this test";
+  $("verdictText").textContent = "Only one attempt is allowed.";
+  const st = $("sendStatus");
+  const pend = lsGet(PEND_KEY);
+  let parsed = null;
+  if (pend) { try { parsed = JSON.parse(pend); } catch (e) {} }
+  if (parsed) { lastPayload = parsed; sendResult(); }
+  else { st.className = "sendstatus ok"; st.textContent = "Your result has been sent to the teacher."; }
+  show("result");
+}
+
+document.addEventListener("keydown", e => {
+  const k = (e.key || "").toLowerCase();
+  if (k === "printscreen" || (e.ctrlKey && (k === "p" || k === "s" || k === "u" || k === "c")) || (e.ctrlKey && e.shiftKey && k === "i") || k === "f12") {
+    e.preventDefault();
+  }
+});
+
+$("beginBtn").addEventListener("click", startTest);
+$("name").addEventListener("keydown", e => { if (e.key === "Enter") startTest(); });
+$("nextBtn").addEventListener("click", goNext);
+$("resendBtn").addEventListener("click", sendResult);
+
+if (lsGet(DONE_KEY) === "1") showAlreadyDone();
+</script>
+</body>
+</html>
